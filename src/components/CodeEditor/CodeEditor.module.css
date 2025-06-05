@@ -1,0 +1,10 @@
+.codeEditorContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.codeEditorFooter {
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8));
+  border-top: 1px solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-6));
+}
