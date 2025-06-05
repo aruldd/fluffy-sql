@@ -1,7 +1,6 @@
 import React from 'react';
-import { sql } from '@codemirror/lang-sql';
+import Editor from '@monaco-editor/react';
 import { IconPlayerPlay } from '@tabler/icons-react';
-import CodeMirror from '@uiw/react-codemirror';
 import { Button, Group, Text, useComputedColorScheme } from '@mantine/core';
 import { useElementSize } from '@mantine/hooks';
 import classes from './CodeEditor.module.css';
@@ -43,17 +42,17 @@ function CodeEditor() {
     
     `);
   const colorScheme = useComputedColorScheme('light');
-  const onChange = React.useCallback((val: string) => {
-    setValue(val);
+  const onChange = React.useCallback((val?: string) => {
+    setValue(val || '');
   }, []);
   return (
     <div ref={ref} className={classes.codeEditorContainer}>
-      <CodeMirror
-        value={value}
+      <Editor
         height={`${height - 40}px`}
-        extensions={[sql()]}
-        onChange={onChange}
+        defaultLanguage="sql"
+        defaultValue={value}
         theme={colorScheme}
+        onChange={onChange}
       />
       <Group
         justify="space-between"
@@ -65,8 +64,8 @@ function CodeEditor() {
         <Text size="xs" c="dimmed">
           Saving...
         </Text>
-        <Button rightSection={<IconPlayerPlay size={16} />} color="blue" size="xs">
-          Run
+        <Button color="blue" size="xs" rightSection={<IconPlayerPlay size={16} />}>
+          Run Query
         </Button>
       </Group>
     </div>
