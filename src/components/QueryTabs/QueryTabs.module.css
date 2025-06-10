@@ -1,14 +1,16 @@
 .queryTabs {
   height: 100%;
+  overflow-x: auto;
+  flex-wrap: nowrap;
 }
 .queryTab {
-  min-width: 100px;
   border: 1px solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-6));
   border-bottom: 0;
+  min-width: 180px;
 }
 
 .queryTabButton {
-  min-width: 100px;
+  min-width: 100%;
   border: 1px solid var(--mantine-color-gray-3);
   border-bottom: 0;
   border-radius: var(--mantine-radius-sm) var(--mantine-radius-sm) 0 0;

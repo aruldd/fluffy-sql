@@ -22,14 +22,20 @@
   "dependencies": {
     "@codemirror/lang-sql": "^6.9.0",
     "@mantine/core": "8.0.2",
-    "@mantine/hooks": "8.0.2",
+    "@mantine/form": "^8.1.0",
+    "@mantine/hooks": "^8.1.0",
     "@monaco-editor/react": "^4.7.0",
     "@tabler/icons-react": "^3.34.0",
     "allotment": "^1.20.3",
+    "immer": "^10.1.1",
+    "lodash": "^4.17.21",
+    "papaparse": "^5.5.3",
     "react": "^19.1.0",
     "react-data-grid": "7.0.0-beta.55",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.5.3"
+    "react-router-dom": "^7.5.3",
+    "vite-plugin-svgr": "^4.3.0",
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.26.0",
@@ -40,7 +46,9 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
+    "@types/lodash": "^4",
     "@types/node": "^22.15.11",
+    "@types/papaparse": "^5",
     "@types/react": "^19.1.3",
     "@types/react-dom": "^19.1.3",
     "@vitejs/plugin-react": "^4.4.1",

@@ -28,14 +28,7 @@ export function AppContainer() {
         <div className={classes.contentArea}>
           <Allotment vertical>
             <Allotment.Pane minSize={300} preferredSize={700}>
-              <Allotment>
-                <Allotment.Pane minSize={300} preferredSize={700}>
-                  <CodeEditor />
-                </Allotment.Pane>
-                <Allotment.Pane minSize={300} preferredSize={300}>
-                  <div className={classes.rightPane}>Right Pane</div>
-                </Allotment.Pane>
-              </Allotment>
+              <CodeEditor />
             </Allotment.Pane>
             <Allotment.Pane minSize={300} preferredSize={300}>
               <Output />

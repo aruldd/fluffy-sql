@@ -1,71 +1,47 @@
-import { IconPlus, IconSearch } from '@tabler/icons-react';
-import {
-  ActionIcon,
-  AppShell,
-  Box,
-  Code,
-  Group,
-  ScrollArea,
-  Text,
-  TextInput,
-  Tooltip,
-} from '@mantine/core';
+/// <reference types="vite-plugin-svgr/client" />
+import { useState } from 'react';
+import { IconPlus } from '@tabler/icons-react';
+import { ActionIcon, AppShell, Group, ScrollArea, Text, Tooltip } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import ReactLogo from '../../assets/fluffy-sql-logo.svg?react';
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
+import UpdateFluffySql from '../modals/UpdateFluffySql/UpdateFluffySql';
+import FluffySqlsList from './FluffySqlsList/FluffySqlsList';
 import { UserButton } from './UserButton/UserButton';
 import classes from './SideNavBar.module.css';
 
-const collections = [
-  { emoji: '👍', label: 'Sales' },
-  { emoji: '🚚', label: 'Deliveries' },
-  { emoji: '💸', label: 'Discounts' },
-  { emoji: '💰', label: 'Profits' },
-  { emoji: '✨', label: 'Reports' },
-  { emoji: '🛒', label: 'Orders' },
-  { emoji: '📅', label: 'Events' },
-  { emoji: '🙈', label: 'Debts' },
-  { emoji: '💁‍♀️', label: 'Customers' },
-];
-
 export function SideNavBar() {
-  const collectionLinks = collections.map((collection) => (
-    <a
-      href="#"
-      onClick={(event) => event.preventDefault()}
-      key={collection.label}
-      className={classes.collectionLink}
-    >
-      <Box component="span" mr={9} fz={16}>
-        {collection.emoji}
-      </Box>{' '}
-      {collection.label}
-    </a>
-  ));
+  const [opened, { open, close }] = useDisclosure(false);
+  const [updateFluffySqlId, setUpdateFluffySqlId] = useState<string | undefined>(undefined);
+  const handleEdit = (id: string) => {
+    setUpdateFluffySqlId(id);
+    open();
+  };
+  const handleCreate = () => {
+    setUpdateFluffySqlId(undefined);
+    open();
+  };
 
   return (
     <AppShell.Navbar pt="md">
-      <AppShell.Section px="md">
-        <TextInput
-          placeholder="Search"
-          size="xs"
-          leftSection={<IconSearch size={12} stroke={1.5} />}
-          rightSectionWidth={70}
-          rightSection={<Code className={classes.searchCode}>Ctrl + K</Code>}
-          styles={{ section: { pointerEvents: 'none' } }}
-          mb="sm"
-        />
+      <AppShell.Section>
+        <Group justify="center" h="60px">
+          <ReactLogo className={classes.logo} />
+        </Group>
       </AppShell.Section>
-      <AppShell.Section grow my="md" component={ScrollArea}>
-        <Group className={classes.collectionsHeader} justify="space-between">
-          <Text size="xs" fw={500} c="dimmed">
+      {opened && <UpdateFluffySql opened={opened} close={close} id={updateFluffySqlId} />}
+      <AppShell.Section grow component={ScrollArea}>
+        <Group className={classes.fluffySqlsHeader} justify="space-between" p="md">
+          <Text size="md" fw={500} c="dimmed">
             Queries
           </Text>
-          <Tooltip label="Create collection" withArrow position="right">
-            <ActionIcon variant="default" size={18}>
+          <Tooltip label="Create fluffySql" withArrow position="right">
+            <ActionIcon variant="default" size={18} onClick={handleCreate}>
               <IconPlus size={12} stroke={1.5} />
             </ActionIcon>
           </Tooltip>
         </Group>
-        <div className={classes.collections}>{collectionLinks}</div>
+        <FluffySqlsList onEdit={handleEdit} />
       </AppShell.Section>
 
       <AppShell.Section>

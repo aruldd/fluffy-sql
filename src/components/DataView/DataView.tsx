@@ -1,10 +1,10 @@
 import React from 'react';
 import { DataGrid, type Column } from 'react-data-grid';
-import { Center, Text, useComputedColorScheme } from '@mantine/core';
+import { Button, Center, Group, Text, useComputedColorScheme } from '@mantine/core';
 import { useElementSize } from '@mantine/hooks';
-import sampleData from './sampleData.json';
+import { exportToCSVAndDownload } from '@/utils';
 
-function DataView({ data = sampleData }: { data?: any[] }) {
+function DataView({ data }: { data?: any[] }) {
   const { ref, height } = useElementSize();
   const colorScheme = useComputedColorScheme('light');
 
@@ -20,6 +20,15 @@ function DataView({ data = sampleData }: { data?: any[] }) {
     }));
   }, [data]);
 
+  if (!data || data.length === 0) {
+    return (
+      <Center h="100%">
+        <Text size="sm" c="dimmed">
+          No data available. Please run the query.
+        </Text>
+      </Center>
+    );
+  }
   return (
     <div ref={ref} style={{ overflow: 'hidden', height: '100%' }}>
       <DataGrid
@@ -29,9 +38,16 @@ function DataView({ data = sampleData }: { data?: any[] }) {
         rows={data}
         defaultColumnOptions={{ resizable: true, sortable: true }}
       />
-      <Center h={35}>
-        <Text size="sm">Total Rows: {data.length}</Text>
-      </Center>
+      <Group h={35} justify="space-between" px="sm" align="center">
+        <Text size="xs">Total Rows: {data.length}</Text>
+        <Button
+          variant="subtle"
+          size="xs"
+          onClick={() => exportToCSVAndDownload(data, `data-export-${Date.now()}.csv`)}
+        >
+          Export as CSV
+        </Button>
+      </Group>
     </div>
   );
 }
