@@ -2,6 +2,8 @@
 
 ## App URL : <https://fluff-sql.arul.one/>
 
+## Demo Link : <https://www.loom.com/share/9fbcdcbe78fa4159a7830d824ea6f640?sid=daec54f9-6e3c-4f2a-a93c-373d6f690d48>
+
 ## App Features
 
 - Full Featured multi-modal editor with syntax highlighting and other industry standard features
