@@ -9,7 +9,7 @@ export function Output() {
   const fluffySql = activeFluffySqlId ? fluffySqls[activeFluffySqlId] : null;
 
   if (!activeFluffySqlId || !fluffySql) {
-    <Text size="sm" c="dimmed" ta="center" mt="md">
+    <Text size="sm" ta="center" mt="md">
       Select a query to run or create a new one.
     </Text>;
     return null;
@@ -17,21 +17,21 @@ export function Output() {
 
   if (!fluffySql.result) {
     return (
-      <Text size="sm" c="dimmed" ta="center" mt="md">
+      <Text size="sm" ta="center" mt="md">
         Run the query to see the results.
       </Text>
     );
   }
   if (!fluffySql.result.data) {
     return (
-      <Text size="sm" c="dimmed" ta="center" mt="md">
+      <Text size="sm" ta="center" mt="md">
         No data available. Please run the query.
       </Text>
     );
   }
   if (!fluffySql.result.data.length) {
     return (
-      <Text size="sm" c="dimmed" ta="center" mt="md">
+      <Text size="sm" ta="center" mt="md">
         No rows returned.
       </Text>
     );

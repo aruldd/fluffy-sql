@@ -11,9 +11,7 @@ export function UserButton() {
             John Kumar
           </Text>
 
-          <Text c="dimmed" size="xs">
-            johnKumar@outlook.com
-          </Text>
+          <Text size="xs">johnKumar@outlook.com</Text>
         </div>
 
         <IconChevronRight size={14} stroke={1.5} />

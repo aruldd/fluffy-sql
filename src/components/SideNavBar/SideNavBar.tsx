@@ -32,11 +32,16 @@ export function SideNavBar() {
       {opened && <UpdateFluffySql opened={opened} close={close} id={updateFluffySqlId} />}
       <AppShell.Section grow component={ScrollArea}>
         <Group className={classes.fluffySqlsHeader} justify="space-between" p="md">
-          <Text size="md" fw={500} c="dimmed">
+          <Text size="md" fw={500}>
             Queries
           </Text>
           <Tooltip label="Create fluffySql" withArrow position="right">
-            <ActionIcon variant="default" size={18} onClick={handleCreate}>
+            <ActionIcon
+              variant="default"
+              size={18}
+              onClick={handleCreate}
+              aria-label="Create fluffySql"
+            >
               <IconPlus size={12} stroke={1.5} />
             </ActionIcon>
           </Tooltip>

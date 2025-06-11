@@ -25,12 +25,22 @@ function FluffySqlsList({ onEdit = () => {} }: { onEdit?: (id: string) => void }
         </Text>
         <Group gap="xs" className={classes.fluffySqlLinkActions}>
           <Tooltip label="Edit fluffySql" withArrow position="right">
-            <ActionIcon variant="default" size={18} onClick={() => onEdit(fluffySql.id)}>
+            <ActionIcon
+              variant="default"
+              size={18}
+              onClick={() => onEdit(fluffySql.id)}
+              aria-label="Edit fluffySql"
+            >
               <IconEdit size={12} stroke={1.5} />
             </ActionIcon>
           </Tooltip>
           <Tooltip label="Delete fluffySql" withArrow position="right">
-            <ActionIcon variant="default" size={18} onClick={() => deleteFluffySql(fluffySql.id)}>
+            <ActionIcon
+              variant="default"
+              size={18}
+              onClick={() => deleteFluffySql(fluffySql.id)}
+              aria-label="Delete fluffySql"
+            >
               <IconTrash size={12} stroke={1.5} />
             </ActionIcon>
           </Tooltip>

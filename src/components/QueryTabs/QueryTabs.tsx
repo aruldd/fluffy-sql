@@ -25,6 +25,7 @@ function QueryTab({
           size="compact-md"
           fullWidth
           onClick={onClickTitle}
+          aria-label="Click to activate query tab"
         >
           {label}
         </Button>
@@ -33,6 +34,7 @@ function QueryTab({
           size="compact-md"
           variant="transparent"
           onClick={onClose}
+          aria-label="Click to close query tab"
         >
           <IconX style={{ width: '70%', height: '70%' }} stroke={1.5} />
         </Button>

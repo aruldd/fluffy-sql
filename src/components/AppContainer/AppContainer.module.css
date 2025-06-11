@@ -2,3 +2,6 @@
   height: calc(100vh - var(--app-shell-header-offset, 0rem 0px));
   background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-9));
 }
+
+.logo {
+}

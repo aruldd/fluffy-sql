@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import Editor from '@monaco-editor/react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { sql } from '@codemirror/lang-sql';
 import {
   IconCircleCheckFilled,
   IconExclamationCircleFilled,
   IconPlayerPlay,
 } from '@tabler/icons-react';
+import CodeMirror, { ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import debounce from 'lodash/debounce';
 import { Button, Group, Text, useComputedColorScheme } from '@mantine/core';
 import { useElementSize } from '@mantine/hooks';
@@ -14,6 +15,7 @@ import classes from './CodeEditor.module.css';
 
 function CodeEditor() {
   const { ref, height } = useElementSize();
+  const editorRef = useRef<ReactCodeMirrorRef | null>(null);
   const colorScheme = useComputedColorScheme('light');
 
   const activeFluffySqlId = useFluffySqlStore((state) => state.activeFluffySqlId);
@@ -40,7 +42,7 @@ function CodeEditor() {
           updateFluffySql(activeFluffySqlId, undefined, undefined, sql);
         }, 1000);
       }
-    }, 1000);
+    }, 3000);
   }, [activeFluffySqlId, updateFluffySql]);
 
   const runQuery = () => {
@@ -55,9 +57,21 @@ function CodeEditor() {
   };
 
   useEffect(() => {
+    // if editor ref, find class 'cm-content' and add aria-label to it
+    if (editorRef.current) {
+      // Find the element with the class 'cm-content' within the ref's current value.
+      const contentElement = editorRef.current.editor?.querySelector('.cm-content');
+
+      // If the element is found, add the aria-label attribute.
+      if (contentElement) {
+        contentElement.setAttribute('aria-label', 'Code Editor');
+      }
+    }
+  }, [editorRef]);
+
+  useEffect(() => {
     if (value !== fluffySql?.sql) {
       debouncedSave(value);
-      console.log('🚀 ~ useEffect ~ debouncedSave(value);:');
     }
   }, [value, fluffySql, debouncedSave]);
 
@@ -77,7 +91,7 @@ function CodeEditor() {
   if (!activeFluffySqlId || !fluffySql) {
     return (
       <div ref={ref} className={classes.codeEditorContainer}>
-        <Text size="sm" c="dimmed" ta="center" mt="md">
+        <Text size="sm" ta="center" mt="md">
           Select a query to edit or create a new one.
         </Text>
       </div>
@@ -85,15 +99,15 @@ function CodeEditor() {
   }
   return (
     <div ref={ref} className={classes.codeEditorContainer}>
-      <Editor
-        height={`${height - 40}px`}
-        defaultLanguage="sql"
-        defaultValue={value}
-        theme={colorScheme === 'dark' ? 'vs-dark' : 'light'}
-        onChange={onChange}
+      <CodeMirror
+        theme={colorScheme}
         value={value}
-        path={activeFluffySqlId}
+        height={`${height - 40}px`}
+        extensions={[sql()]}
+        onChange={onChange}
+        ref={editorRef}
       />
+
       <Group
         justify="space-between"
         className={classes.codeEditorFooter}
@@ -102,7 +116,7 @@ function CodeEditor() {
         h="40px"
       >
         {fluffySql.updatedAt ? (
-          <Text size="xs" c="dimmed">
+          <Text size="xs">
             {isSaving ? 'Saving...' : `Saved ${getRelativeTimeFromNow(fluffySql.updatedAt)}`}
           </Text>
         ) : null}
@@ -110,21 +124,16 @@ function CodeEditor() {
           {fluffySql.result?.error && (
             <Group gap="xs" align="center">
               <IconExclamationCircleFilled color="orange" size={16} />
-              <Text size="xs" c="dimmed">
-                {fluffySql.result.error}
-              </Text>
+              <Text size="xs">{fluffySql.result.error}</Text>
             </Group>
           )}
           {fluffySql.result?.status === 'success' && (
             <Group gap="xs" align="center">
               <IconCircleCheckFilled color="green" size={16} />
-              <Text size="xs" c="dimmed">
-                Success
-              </Text>
+              <Text size="xs">Success</Text>
             </Group>
           )}
           <Button
-            color="blue"
             size="xs"
             rightSection={<IconPlayerPlay size={16} />}
             onClick={runQuery}

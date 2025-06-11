@@ -23,9 +23,7 @@ function DataView({ data }: { data?: any[] }) {
   if (!data || data.length === 0) {
     return (
       <Center h="100%">
-        <Text size="sm" c="dimmed">
-          No data available. Please run the query.
-        </Text>
+        <Text size="sm">No data available. Please run the query.</Text>
       </Center>
     );
   }
