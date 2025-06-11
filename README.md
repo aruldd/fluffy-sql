@@ -1,5 +1,7 @@
 # Fluffy SQL, A SQL Query Runner UI
 
+## App URL : <https://fluff-sql.arul.one/>
+
 ## App Features
 
 - Full Featured multi-modal editor with syntax highlighting and other industry standard features
@@ -38,6 +40,7 @@
 
 - Charts and export for charts
 - Partial Sql Execution
+- File revisions
 
 ## Why no tests
 
